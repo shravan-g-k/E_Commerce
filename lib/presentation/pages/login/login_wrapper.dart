@@ -1,4 +1,5 @@
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
+import 'package:e_commerce/presentation/pages/home/home.dart';
 import 'package:e_commerce/presentation/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,14 +23,7 @@ class _LoginWrapperState extends State<LoginWrapper> {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, state) {
         if (state is UserAuthenticated) {
-          return Center(
-            child: GestureDetector(
-              onDoubleTap: () {
-                context.read<AuthBloc>().add(LogoutButtonPressed());
-              },
-              child: Text('Logged in as ${state.userModel.email}'),
-            ),
-          );
+          return Home();
         } else if (state is UserNotAuthenticated) {
           return const LoginPage();
         } else {

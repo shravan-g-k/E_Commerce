@@ -1,5 +1,4 @@
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
-import 'package:e_commerce/presentation/pages/login/login_page.dart';
 import 'package:e_commerce/presentation/pages/login/login_wrapper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -22,17 +21,18 @@ class ECommerce extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadApp.material(
-        darkTheme: ShadThemeData(
-          brightness: Brightness.dark,
-          colorScheme: const ShadBlueColorScheme.dark(),
-        ),
-        home: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => AuthBloc(),
-            ),
-          ],
-          child: LoginWrapper(),
-        ));
+      darkTheme: ShadThemeData(
+        brightness: Brightness.dark,
+        colorScheme: const ShadBlueColorScheme.dark(),
+      ),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(),
+          ),
+        ],
+        child: LoginWrapper(),
+      ),
+    );
   }
 }
