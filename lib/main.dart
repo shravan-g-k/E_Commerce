@@ -1,4 +1,7 @@
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
+import 'package:e_commerce/bloc/category_bloc/category_bloc.dart';
+import 'package:e_commerce/data/repository/auth_repo.dart';
+import 'package:e_commerce/data/repository/products_repo.dart';
 import 'package:e_commerce/presentation/pages/login/login_wrapper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -20,18 +23,28 @@ class ECommerce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShadApp.material(
-      darkTheme: ShadThemeData(
-        brightness: Brightness.dark,
-        colorScheme: const ShadBlueColorScheme.dark(),
-      ),
-      home: MultiBlocProvider(
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (context) => UserRepository()),
+        RepositoryProvider(create: (context) => ProductRepository()),
+      ],
+      child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => AuthBloc(),
+            create: (context) => AuthBloc(context.read<UserRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                CategoryBloc(context.read<ProductRepository>()),
           ),
         ],
-        child: LoginWrapper(),
+        child: ShadApp.material(
+          darkTheme: ShadThemeData(
+            brightness: Brightness.dark,
+            colorScheme: const ShadBlueColorScheme.dark(),
+          ),
+          home: LoginWrapper(),
+        ),
       ),
     );
   }

@@ -7,8 +7,8 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final UserRepository _userRepository = UserRepository();
-  AuthBloc() : super(UserLoading()) {
+  final UserRepository _userRepository;
+  AuthBloc(this._userRepository) : super(UserLoading()) {
     on<LoginButtonPressed>((event, emit) async {
       emit(UserLoading());
       await _userRepository.loginUser().then((value) {
@@ -22,14 +22,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<CheckAuthStatus>((event, emit) async {
       emit(UserLoading());
-       await for(final user in _userRepository.userStateStream()) {
-         if (user != null) {
-           emit(UserAuthenticated(userModel: user));
-         }
-         else {
-           emit(UserNotAuthenticated());
-         }
-       }
+      await for (final user in _userRepository.userStateStream()) {
+        if (user != null) {
+          emit(UserAuthenticated(userModel: user));
+        } else {
+          emit(UserNotAuthenticated());
+        }
+      }
     });
 
     on<LogoutButtonPressed>((event, emit) async {

@@ -1,6 +1,7 @@
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
 import 'package:e_commerce/presentation/pages/home/home.dart';
 import 'package:e_commerce/presentation/pages/login/login_page.dart';
+import 'package:e_commerce/presentation/widgets/loading_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,9 +28,7 @@ class _LoginWrapperState extends State<LoginWrapper> {
         } else if (state is UserNotAuthenticated) {
           return const LoginPage();
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: LoadingBar());
         }
       },
     );

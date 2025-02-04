@@ -69,18 +69,6 @@ class CategoriesData {
       "icon": ImageData.devices,
     },
     {
-      "name": "Cloth",
-      "image": "cloth.png",
-      "db_names": ["cloth"],
-      "icon": ImageData.cloth,
-    },
-    {
-      "name": "Dress",
-      "image": "dress.png",
-      "db_names": ["dress"],
-      "icon": ImageData.dress,
-    },
-    {
       "name": "Kitchen",
       "image": "kitchen.png",
       "db_names": ["kitchen-accessories"],
@@ -108,7 +96,7 @@ class CategoriesData {
       "name": "Tops",
       "image": "tops.jpg",
       "db_names": ["tops"],
-      "icon": ImageData.cloth,
+      "icon": ImageData.dress,
     },
   ];
 }
