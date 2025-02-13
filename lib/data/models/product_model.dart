@@ -59,7 +59,7 @@ class ProductModel {
 class Review {
   final int rating;
   final String comment;
-  final String date;
+  final DateTime date;
   final String reviewerName;
 
   Review({
@@ -73,7 +73,7 @@ class Review {
     return Review(
       rating: json['rating'],
       comment: json['comment'],
-      date: json['date'],
+      date: DateTime.parse(json['date']),
       reviewerName: json['reviewerName'],
     );
   }
@@ -82,7 +82,7 @@ class Review {
     return {
       'rating': rating,
       'comment': comment,
-      'date': date,
+      'date': date.toString(),
       'reviewerName': reviewerName,
     };
   }
