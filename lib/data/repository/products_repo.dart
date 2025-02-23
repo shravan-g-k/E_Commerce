@@ -13,4 +13,19 @@ class ProductRepository {
         .inFilter('category', categories);
     return data.map((e) => ProductModel.fromJson(e)).toList();
   }
+
+  Future<List<ProductModel>> getFeaturedProducts() async {
+    final data = await supabase
+        .from(productTable)
+        .select()
+        .or('category.eq.home-decoration,category.eq.womens-bags');
+
+    return data.map((e) => ProductModel.fromJson(e)).toList()..shuffle();
+  }
+
+  Future<List<ProductModel>> getPremiumProducts() async {
+    final data = await supabase.from(productTable).select().gt('price', 1000);
+
+    return data.map((e) => ProductModel.fromJson(e)).toList()..shuffle();
+  }
 }

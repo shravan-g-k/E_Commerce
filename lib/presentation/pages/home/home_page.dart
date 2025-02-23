@@ -1,3 +1,6 @@
+import 'package:e_commerce/bloc/home_bloc/home_bloc.dart';
+import 'package:e_commerce/data/repository/products_repo.dart';
+import 'package:e_commerce/presentation/pages/home/featured_premium_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
@@ -55,6 +58,13 @@ class _HomePageState extends State<HomePage> {
         AppSearchBar(),
         const SizedBox(height: 10),
         CategoriesWidget(),
+        const SizedBox(height: 10),
+        BlocProvider(
+          create: (context) => HomeBloc(
+            context.read<ProductRepository>(),
+          ),
+          child: FeaturedPremiumWidget(),
+        ),
       ],
     );
   }
