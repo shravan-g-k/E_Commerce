@@ -1,21 +1,34 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class UserModel {
   final String id;
   final String email;
+  final String? address;
+  final List<String> likes;
+  final List<String> cart;
   UserModel({
     required this.id,
     required this.email,
+    this.address,
+    required this.likes,
+    required this.cart,
   });
-  
 
   UserModel copyWith({
     String? id,
     String? email,
+    ValueGetter<String?>? address,
+    List<String>? likes,
+    List<String>? cart,
   }) {
     return UserModel(
       id: id ?? this.id,
       email: email ?? this.email,
+      address: address != null ? address() : this.address,
+      likes: likes ?? this.likes,
+      cart: cart ?? this.cart,
     );
   }
 
@@ -23,6 +36,9 @@ class UserModel {
     return {
       'id': id,
       'email': email,
+      'address': address,
+      'likes': likes,
+      'cart': cart,
     };
   }
 
@@ -30,15 +46,21 @@ class UserModel {
     return UserModel(
       id: map['id'] ?? '',
       email: map['email'] ?? '',
+      address: map['address'],
+      likes: List<String>.from(map['likes']),
+      cart: List<String>.from(map['cart']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source));
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source));
 
   @override
-  String toString() => 'UserModel(id: $id, email: $email)';
+  String toString() {
+    return 'UserModel(id: $id, email: $email, address: $address, likes: $likes, cart: $cart)';
+  }
 
   @override
   bool operator ==(Object other) {
@@ -46,9 +68,18 @@ class UserModel {
   
     return other is UserModel &&
       other.id == id &&
-      other.email == email;
+      other.email == email &&
+      other.address == address &&
+      listEquals(other.likes, likes) &&
+      listEquals(other.cart, cart);
   }
 
   @override
-  int get hashCode => id.hashCode ^ email.hashCode;
+  int get hashCode {
+    return id.hashCode ^
+      email.hashCode ^
+      address.hashCode ^
+      likes.hashCode ^
+      cart.hashCode;
+  }
 }

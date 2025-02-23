@@ -16,6 +16,7 @@ class _LoginWrapperState extends State<LoginWrapper> {
   @override
   void initState() {
     context.read<AuthBloc>().add(CheckAuthStatus());
+    // context.read<AuthBloc>().add(LogoutButtonPressed());
     super.initState();
   }
 
@@ -27,6 +28,8 @@ class _LoginWrapperState extends State<LoginWrapper> {
           return Home();
         } else if (state is UserNotAuthenticated) {
           return const LoginPage();
+        } else if (state is AuthError) {
+          return Center(child: Text(state.message));
         } else {
           return const Center(child: LoadingBar());
         }

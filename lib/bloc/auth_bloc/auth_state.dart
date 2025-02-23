@@ -5,7 +5,6 @@ sealed class AuthState {}
 
 final class UserAuthenticated extends AuthState {
   final UserModel userModel;
-
   UserAuthenticated({required this.userModel});
 }
 
@@ -18,3 +17,4 @@ final class AuthError extends AuthState {
 
   AuthError({required this.message});
 }
+

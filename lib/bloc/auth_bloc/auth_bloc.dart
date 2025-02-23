@@ -8,14 +8,20 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserRepository _userRepository;
+  UserModel? _userModel;
+
+  UserModel get user => _userModel!;
   AuthBloc(this._userRepository) : super(UserLoading()) {
     on<LoginButtonPressed>((event, emit) async {
       emit(UserLoading());
-      await _userRepository.loginUser().then((value) {
+      await _userRepository.loginUser().then((value) async {
         if (value != null) {
+          _userModel = value;
           emit(UserAuthenticated(userModel: value));
+        } else {
+          emit(UserNotAuthenticated());
         }
-      }).catchError((error) {
+      }).catchError((error, s) {
         emit(AuthError(message: error.toString()));
       });
     });
@@ -24,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(UserLoading());
       await for (final user in _userRepository.userStateStream()) {
         if (user != null) {
+          _userModel = user;
           emit(UserAuthenticated(userModel: user));
         } else {
           emit(UserNotAuthenticated());
@@ -33,8 +40,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<LogoutButtonPressed>((event, emit) async {
       await _userRepository.logoutUser().whenComplete(
-            () => emit(UserNotAuthenticated()),
-          );
+        () {
+          _userModel = null;
+          emit(UserNotAuthenticated());
+        },
+      );
+    });
+
+    on<UpdateUser>((event, emit) async {
+      emit(UserLoading());
+      await _userRepository.updateUser(event.user).whenComplete(
+        () {
+          _userModel = event.user;
+          emit(UserAuthenticated(
+            userModel: event.user,
+          ));
+        },
+      );
     });
   }
 }
