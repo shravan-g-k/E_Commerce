@@ -1,5 +1,6 @@
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
 import 'package:e_commerce/bloc/category_bloc/category_bloc.dart';
+import 'package:e_commerce/bloc/search_bloc/search_bloc.dart';
 import 'package:e_commerce/data/repository/auth_repo.dart';
 import 'package:e_commerce/data/repository/products_repo.dart';
 import 'package:e_commerce/presentation/pages/login/login_wrapper.dart';
@@ -36,6 +37,10 @@ class ECommerce extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 CategoryBloc(context.read<ProductRepository>()),
+          ),
+          BlocProvider(
+            create: (context) =>
+                SearchBloc(context.read<ProductRepository>()),
           ),
         ],
         child: ShadApp.material(

@@ -24,11 +24,17 @@ class _AddressDialogState extends State<AddressDialog> {
   }
 
   void saveAddress(String address) {
-    context.read<AuthBloc>().add(UpdateUser(
-          user: context.read<AuthBloc>().user.copyWith(
-                address: () => address,
-              ),
-        ));
+    if (addressController.text.isEmpty) {
+      return;
+    }
+
+    context.read<AuthBloc>().add(
+          UpdateUser(
+            user: context.read<AuthBloc>().user.copyWith(
+                  address: () => addressController.text,
+                ),
+          ),
+        );
   }
 
   @override

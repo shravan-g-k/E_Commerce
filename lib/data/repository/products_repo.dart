@@ -28,4 +28,13 @@ class ProductRepository {
 
     return data.map((e) => ProductModel.fromJson(e)).toList()..shuffle();
   }
+
+  Future<List<ProductModel>> queryProducts(String query) async {
+    final data = await supabase.from(productTable).select().textSearch(
+          'description',
+          query,
+          type: TextSearchType.websearch,
+        );
+    return data.map((e) => ProductModel.fromJson(e)).toList();
+  }
 }
