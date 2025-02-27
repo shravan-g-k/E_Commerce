@@ -6,8 +6,8 @@ class UserModel {
   final String id;
   final String email;
   final String? address;
-  final List<String> likes;
-  final List<String> cart;
+  final List<int> likes;
+  final List<int> cart;
   UserModel({
     required this.id,
     required this.email,
@@ -20,8 +20,8 @@ class UserModel {
     String? id,
     String? email,
     ValueGetter<String?>? address,
-    List<String>? likes,
-    List<String>? cart,
+    List<int>? likes,
+    List<int>? cart,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -47,8 +47,8 @@ class UserModel {
       id: map['id'] ?? '',
       email: map['email'] ?? '',
       address: map['address'],
-      likes: List<String>.from(map['likes']),
-      cart: List<String>.from(map['cart']),
+      likes: List<int>.from(map['likes']),
+      cart: List<int>.from(map['cart']),
     );
   }
 

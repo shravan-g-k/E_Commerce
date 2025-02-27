@@ -37,4 +37,12 @@ class ProductRepository {
         );
     return data.map((e) => ProductModel.fromJson(e)).toList();
   }
+
+  Future<List<ProductModel>> getProductsFromIDs(List<int> ids) async {
+    final data = await supabase
+        .from(productTable)
+        .select()
+        .inFilter('id', ids);
+    return data.map((e) => ProductModel.fromJson(e)).toList();
+  }
 }

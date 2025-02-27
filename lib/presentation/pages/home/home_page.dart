@@ -53,6 +53,8 @@ class _HomePageState extends State<HomePage> {
                 user.address == null ? "Add address" : user.address!,
                 style: ShadTheme.of(context).textTheme.large,
                 textAlign: TextAlign.center,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
