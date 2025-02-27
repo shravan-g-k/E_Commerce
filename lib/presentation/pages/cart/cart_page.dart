@@ -21,8 +21,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<CartBloc, CartState>(
+    return   BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartProductsLoaded) {
             return Column(
@@ -52,7 +51,7 @@ class _CartPageState extends State<CartPage> {
             return const Center(child: LoadingBar());
           }
         },
-      ),
+
     );
   }
 }

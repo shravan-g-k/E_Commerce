@@ -21,8 +21,7 @@ class _LikesPageState extends State<LikesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<LikesBloc, LikesState>(
+    return BlocBuilder<LikesBloc, LikesState>(
         builder: (context, state) {
           if (state is LikedProductsLoaded) {
             return Column(
@@ -41,7 +40,6 @@ class _LikesPageState extends State<LikesPage> {
                 ProductsGrid(products: state.products),
               ],
             );
-            
           } else if (state is NoLikedProducts) {
             return Center(
               child: Text(
@@ -53,7 +51,6 @@ class _LikesPageState extends State<LikesPage> {
             return const Center(child: LoadingBar());
           }
         },
-      ),
     );
   }
 }

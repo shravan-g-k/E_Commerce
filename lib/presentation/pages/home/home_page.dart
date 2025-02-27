@@ -37,25 +37,15 @@ class _HomePageState extends State<HomePage> {
             style: ShadTheme.of(context).textTheme.muted,
           ),
         ),
-        InkWell(
-          onTap: () {
-            showShadDialog(
-              context: context,
-              builder: (context) {
-                return const AddressDialog();
-              },
-            );
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Center(
-              child: Text(
-                user.address == null ? "Add address" : user.address!,
-                style: ShadTheme.of(context).textTheme.large,
-                textAlign: TextAlign.center,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-              ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Center(
+            child: Text(
+              user.address == null ? "Add address" : user.address!,
+              style: ShadTheme.of(context).textTheme.large,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ),
