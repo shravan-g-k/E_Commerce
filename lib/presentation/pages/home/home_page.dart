@@ -8,7 +8,6 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
 import 'package:e_commerce/data/models/user_model.dart';
-import 'package:e_commerce/presentation/pages/home/address_dialog.dart';
 import 'package:e_commerce/presentation/pages/home/categories_widget.dart';
 import 'package:e_commerce/presentation/widgets/search_bar.dart';
 

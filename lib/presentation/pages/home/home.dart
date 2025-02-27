@@ -5,6 +5,7 @@ import 'package:e_commerce/data/repository/products_repo.dart';
 import 'package:e_commerce/presentation/pages/cart/cart_page.dart';
 import 'package:e_commerce/presentation/pages/home/home_page.dart';
 import 'package:e_commerce/presentation/pages/likes/likes_page.dart';
+import 'package:e_commerce/presentation/pages/profile/profile_page.dart';
 import 'package:e_commerce/utils/home_pages_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,9 +84,7 @@ class _HomeState extends State<Home> {
               ),
             );
           case HomePagesEnum.profile:
-            return const Center(
-              child: Text('Profile'),
-            );
+            return const ProfilePage();
         }
       }),
     );
