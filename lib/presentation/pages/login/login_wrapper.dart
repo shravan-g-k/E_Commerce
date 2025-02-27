@@ -33,7 +33,7 @@ class _LoginWrapperState extends State<LoginWrapper> {
         } else {
           return const Center(child: LoadingBar());
         }
-      },
+      },   
     );
   }
 }
