@@ -1,4 +1,5 @@
 import 'package:e_commerce/bloc/cart_bloc/cart_bloc.dart';
+import 'package:e_commerce/presentation/pages/cart/order_page.dart';
 import 'package:e_commerce/presentation/widgets/loading_bar.dart';
 import 'package:e_commerce/presentation/widgets/products_grid.dart';
 import 'package:flutter/material.dart';
@@ -21,37 +22,50 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return   BlocBuilder<CartBloc, CartState>(
-        builder: (context, state) {
-          if (state is CartProductsLoaded) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).padding.top,
-                ),
-                Padding(
+    return BlocBuilder<CartBloc, CartState>(
+      builder: (context, state) {
+        if (state is CartProductsLoaded) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).padding.top,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
                   padding: const EdgeInsets.only(left: 20, top: 10),
                   child: Text(
                     "Your Cart",
                     style: ShadTheme.of(context).textTheme.h3,
                   ),
                 ),
-                ProductsGrid(products: state.products),
-              ],
-            );
-          } else if (state is CartIsEmpty) {
-            return Center(
-              child: Text(
-                "Cart is empty",
-                style: ShadTheme.of(context).textTheme.h2,
               ),
-            );
-          } else {
-            return const Center(child: LoadingBar());
-          }
-        },
-
+              Expanded(child: ProductsGrid(products: state.products)),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderPage(),
+                    ),
+                  );
+                },
+                child: const Text('Proceed to Payment'),
+              ),
+            ],
+          );
+        } else if (state is CartIsEmpty) {
+          return Center(
+            child: Text(
+              "Cart is empty",
+              style: ShadTheme.of(context).textTheme.h2,
+            ),
+          );
+        } else {
+          return const Center(child: LoadingBar());
+        }
+      },
     );
   }
 }

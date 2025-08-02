@@ -1,5 +1,4 @@
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
-import 'package:e_commerce/bloc/cart_bloc/cart_bloc.dart';
 import 'package:e_commerce/bloc/likes_bloc/likes_bloc.dart';
 import 'package:e_commerce/data/repository/products_repo.dart';
 import 'package:e_commerce/presentation/pages/cart/cart_page.dart';
@@ -66,13 +65,10 @@ class _HomeState extends State<Home> {
           case HomePagesEnum.home:
             return const HomePage();
           case HomePagesEnum.cart:
-            return BlocProvider<CartBloc>(
-              create: (context) => CartBloc(
-                productRepository: context.read<ProductRepository>(),
-              ),
-              child: CartPage(
+            return 
+            CartPage(
                 ids: user.cart,
-              ),
+             
             );
           case HomePagesEnum.likes:
             return BlocProvider(

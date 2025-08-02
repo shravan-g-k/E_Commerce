@@ -1,7 +1,10 @@
 import 'package:e_commerce/bloc/auth_bloc/auth_bloc.dart';
+import 'package:e_commerce/bloc/cart_bloc/cart_bloc.dart';
 import 'package:e_commerce/bloc/category_bloc/category_bloc.dart';
+import 'package:e_commerce/bloc/payment_bloc/payment_bloc.dart';
 import 'package:e_commerce/bloc/search_bloc/search_bloc.dart';
 import 'package:e_commerce/data/repository/auth_repo.dart';
+import 'package:e_commerce/data/repository/payment_repo.dart';
 import 'package:e_commerce/data/repository/products_repo.dart';
 import 'package:e_commerce/presentation/pages/login/login_wrapper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +31,7 @@ class ECommerce extends StatelessWidget {
       providers: [
         RepositoryProvider(create: (context) => UserRepository()),
         RepositoryProvider(create: (context) => ProductRepository()),
+        RepositoryProvider(create: (context) => PaymentRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -39,8 +43,16 @@ class ECommerce extends StatelessWidget {
                 CategoryBloc(context.read<ProductRepository>()),
           ),
           BlocProvider(
+            create: (context) => SearchBloc(context.read<ProductRepository>()),
+          ),
+          BlocProvider(
             create: (context) =>
-                SearchBloc(context.read<ProductRepository>()),
+                PaymentBloc(context.read<PaymentRepository>()),
+          ),
+          BlocProvider(
+            create: (context) => CartBloc(
+              productRepository: context.read<ProductRepository>(),
+            ),
           ),
         ],
         child: ShadApp.material(

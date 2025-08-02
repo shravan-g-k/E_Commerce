@@ -8,6 +8,9 @@ part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   final ProductRepository productRepository;
+
+  List<ProductModel> cartProducts = [];
+
   CartBloc({required this.productRepository}) : super(CartInitial()) {
     on<LoadCartProducts>((event, emit) async {
       emit(LoadingCartProducts());
@@ -18,6 +21,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           emit(CartIsEmpty());
         } else {
           emit(CartProductsLoaded(products: value));
+          cartProducts = value;
         }
       });
     });
